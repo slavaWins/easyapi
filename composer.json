@@ -1,0 +1,28 @@
+{
+    "name": "slavawins/easyapi",
+    "description": "Expa",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "slavaWins",
+            "email": "email@example.com",
+            "homepage": "https://github.com/slavaWins/easyapi"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "EasyApi\\Providers\\EasyApiServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "EasyApi\\": "src"
+        }
+    }
+}

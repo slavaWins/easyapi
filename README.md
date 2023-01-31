@@ -18,13 +18,11 @@ composer require slavawins/easyapi
 php artisan vendor:publish --provider="EasyApi\Providers\EasyApiServiceProvider"
 ``` 
 
- В роутере routes/web.php удалить:
- добавить
- ```
-    \EasyApi\Library\EasyApiRoute::routes();
+ 
+Подключить
  ```
 
-Выполнить миграцию
- ```
-    php artisan migrate 
+    <script src="{{ asset('js/easyapi/easyclass.js') }}"></script>
+    <script src="{{ asset('js/easyapi/easyapi.js') }}"></script>
+    <script src="{{ asset('js/easyapi/easyform.js') }}" defer></script>
  ``` 

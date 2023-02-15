@@ -24,13 +24,22 @@ EasyApi.Post = function (url, date, callback, callbackError) {
                 if (self.alertError) self.alertError.hide();
             }
             callback(response, error, errorCode);
-        }).fail(function () {
-            callback(null, "Ошибка сервера...");
-
-
-            if (self.alertError) {
-                self.alertError.show();
-                self.alertError.html("Ошибка сервера...");
+        }).fail(function (info) {
+            if (info.responseJSON){
+                response = info.responseJSON;
+                console.log(url + " FAIL ERROR: " + response.message);
+                error = response.message;
+                callback(info.responseJSON, error);
+                if (self.alertError) {
+                    self.alertError.show();
+                    self.alertError.html(error);
+                }
+            }else{
+                callback(null, "Ошибка сервера...");
+                if (self.alertError) {
+                    self.alertError.show();
+                    self.alertError.html("Ошибка сервера...");
+                }
             }
         });
     }
@@ -45,3 +54,4 @@ EasyApi.Post = function (url, date, callback, callbackError) {
 
 
 window.EasyApi = EasyApi;
+

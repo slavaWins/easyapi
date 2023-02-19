@@ -33,8 +33,8 @@ EasyApi.UpdatePage = function (url="") {
         $('[name="csrf-token"]').attr('content', srf);
         $('[name="_token"]').val( srf);
 
-        r = r.split("<!-- sxcontent -->")[1];
-        r = r.split("<!-- excontent -->")[0];
+        r = r.split("<!-- easycontent.start -->")[1];
+        r = r.split("<!-- easycontent.end -->")[0];
 
         $('#app').html(r);
         $('#app').css("opacity", '1');

@@ -10,17 +10,19 @@ class EasyForm extends Component
 
     public $route = "/";
     public $btn = "Отправить";
+    public $onSuccess;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($route = null, $btn = "Отправить")
+    public function __construct($route = null, $btn = "Отправить", $onSuccess = null)
     {
 
         $this->route = $route;
         $this->btn = $btn;
+        $this->onSuccess = $onSuccess;
     }
 
     /**

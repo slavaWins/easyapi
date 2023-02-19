@@ -1,5 +1,48 @@
 var EasyApi = {};
 
+/**
+ * Вызывать ГЕТ юрил а потом обновить текущую страницу
+ */
+EasyApi.CallGetAndUpdatePage = function (url) {
+
+    $.get(url,  function(r){
+        EasyApi.UpdatePage();
+    });
+    return EasyApi;
+}
+
+EasyApi.UpdatePage = function (url="") {
+    $('#app').css("transition", 'opacity 0.3s');
+    $('#app').css("opacity", '0.4');
+
+    if ($('.modal:visible').length>0) {
+        $('.modal:visible').modal('hide');
+        //    $('.modal-backdrop').remove();
+    }
+
+
+    if (url!="") {
+        window.history.pushState("data", "Title", url);
+    }
+
+    $.get(url,  function(r){
+
+        var srf =   r.split('<meta name="csrf-token" content="')[1];
+        var srf =   srf.split('"')[0];
+        // console.log(srf);
+        $('[name="csrf-token"]').attr('content', srf);
+        $('[name="_token"]').val( srf);
+
+        r = r.split("<!-- sxcontent -->")[1];
+        r = r.split("<!-- excontent -->")[0];
+
+        $('#app').html(r);
+        $('#app').css("opacity", '1');
+    });
+    return EasyApi;
+}
+
+
 EasyApi.Post = function (url, date, callback, callbackError) {
     var self = {};
     self.alertError = null;
@@ -8,6 +51,8 @@ EasyApi.Post = function (url, date, callback, callbackError) {
     self.request = function () {
         if (self.alertError) self.alertError.hide();
         date._token = $('meta[name="csrf-token"]').attr('content');
+
+
 
         $.post(url, date, function (response) {
             var error = null;

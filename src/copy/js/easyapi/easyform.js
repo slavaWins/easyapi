@@ -63,7 +63,17 @@ MrpForm.New = function (e) {
                 return;
             }
 
+            var onSuccessCall = e.attr('onSuccessCall');
+            if (onSuccessCall.trim().length>1){
+                eval(onSuccessCall)();
+            }
+
+            //console.log(response.response);
             self.goodDiv.show();
+            if (typeof response.response === 'string'){
+                self.goodDiv.html(response.response);
+            }
+
 
         });
     }

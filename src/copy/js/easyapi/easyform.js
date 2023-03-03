@@ -32,9 +32,25 @@ MrpForm.New = function (e) {
     self.GetData = function () {
         var data = {};
         var formData = e.serializeArray();
+
         for (var i = 0; i < formData.length; i++) {
-            data[formData[i].name] = formData[i].value;
+            var key = formData[i].name;
+            var isArray = key.indexOf("[]") > 0;
+            key = key.replace('[]', '');
+
+            if (isArray) {
+                if (!data.hasOwnProperty(key)) {
+                    data[key] = [];
+                }
+                data[key].push(formData[i].value)
+
+            } else {
+                data[key] = formData[i].value;
+            }
+
+
         }
+      //  console.log(data);
         return data;
     }
 
@@ -64,13 +80,15 @@ MrpForm.New = function (e) {
             }
 
             var onSuccessCall = e.attr('onSuccessCall');
-            if (onSuccessCall.trim().length>1){
-                eval(onSuccessCall)();
+            if (onSuccessCall) {
+                if (onSuccessCall.trim().length > 1) {
+                    eval(onSuccessCall)();
+                }
             }
 
             //console.log(response.response);
             self.goodDiv.show();
-            if (typeof response.response === 'string'){
+            if (typeof response.response === 'string') {
                 self.goodDiv.html(response.response);
             }
 

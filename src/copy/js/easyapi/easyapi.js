@@ -5,33 +5,39 @@ var EasyApi = {};
  */
 EasyApi.CallGetAndUpdatePage = function (url) {
 
-    $.get(url,  function(r){
+    $.get(url, function (r) {
         EasyApi.UpdatePage();
     });
     return EasyApi;
 }
 
-EasyApi.UpdatePage = function (url="") {
+EasyApi.DownloadHtmlContentInSelecorGet = function (selector, url) {
+    $.get(url, function (r) {
+        $(selector).html(r);
+    });
+}
+
+EasyApi.UpdatePage = function (url = "") {
     $('#app').css("transition", 'opacity 0.3s');
     $('#app').css("opacity", '0.4');
 
-    if ($('.modal:visible').length>0) {
+    if ($('.modal:visible').length > 0) {
         $('.modal:visible').modal('hide');
         //    $('.modal-backdrop').remove();
     }
 
 
-    if (url!="") {
+    if (url != "") {
         window.history.pushState("data", "Title", url);
     }
 
-    $.get(url,  function(r){
+    $.get(url, function (r) {
 
-        var srf =   r.split('<meta name="csrf-token" content="')[1];
-        var srf =   srf.split('"')[0];
+        var srf = r.split('<meta name="csrf-token" content="')[1];
+        var srf = srf.split('"')[0];
         // console.log(srf);
         $('[name="csrf-token"]').attr('content', srf);
-        $('[name="_token"]').val( srf);
+        $('[name="_token"]').val(srf);
 
         r = r.split("<!-- easycontent.start -->")[1];
         r = r.split("<!-- easycontent.end -->")[0];
@@ -53,7 +59,6 @@ EasyApi.Post = function (url, date, callback, callbackError) {
         date._token = $('meta[name="csrf-token"]').attr('content');
 
 
-
         $.post(url, date, function (response) {
             var error = null;
             var errorCode = 0;
@@ -70,7 +75,7 @@ EasyApi.Post = function (url, date, callback, callbackError) {
             }
             callback(response, error, errorCode);
         }).fail(function (info) {
-            if (info.responseJSON){
+            if (info.responseJSON) {
                 response = info.responseJSON;
                 console.log(url + " FAIL ERROR: " + response.message);
                 error = response.message;
@@ -79,7 +84,7 @@ EasyApi.Post = function (url, date, callback, callbackError) {
                     self.alertError.show();
                     self.alertError.html(error);
                 }
-            }else{
+            } else {
                 callback(null, "Ошибка сервера...");
                 if (self.alertError) {
                     self.alertError.show();

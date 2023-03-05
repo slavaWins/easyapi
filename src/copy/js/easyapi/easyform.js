@@ -9,9 +9,17 @@ MrpForm.Init = function () {
 
 }
 
+MrpForm.forms = {};
+
 
 MrpForm.New = function (e) {
+
+    if (MrpForm.forms[e]){
+        //return MrpForm.forms[e];
+    }
+
     var self = {};
+
 
     $(e).on("submit", function () {
         self.Send();
@@ -50,7 +58,7 @@ MrpForm.New = function (e) {
 
 
         }
-      //  console.log(data);
+        console.log(data);
         return data;
     }
 
@@ -96,6 +104,8 @@ MrpForm.New = function (e) {
         });
     }
 
+
+    MrpForm.forms[e] = self;
     return self;
 }
 

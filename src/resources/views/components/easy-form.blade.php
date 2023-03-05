@@ -12,6 +12,8 @@
         <div class="spinner-border float-end loadingDiv" role="status" style="display: none;">
             <span class="visually-hidden">Loading...</span>
         </div>
+        @if($btn)
         <a class="btn btnSumbitForm btn-outline-dark mt-1 w100">{{$btn}}</a>
+        @endif
     </div>
 </form>

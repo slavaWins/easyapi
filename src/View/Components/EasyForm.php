@@ -9,7 +9,7 @@ class EasyForm extends Component
 {
 
     public $route = "/";
-    public $btn = "Отправить";
+    public $btn = null;
     public $onSuccess;
 
     /**
@@ -17,7 +17,7 @@ class EasyForm extends Component
      *
      * @return void
      */
-    public function __construct($route = null, $btn = "Отправить", $onSuccess = null)
+    public function __construct($route = null, $btn = null, $onSuccess = null)
     {
 
         $this->route = $route;

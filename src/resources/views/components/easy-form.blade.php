@@ -13,7 +13,7 @@
             <span class="visually-hidden">Loading...</span>
         </div>
         @if($btn)
-        <a class="btn btnSumbitForm btn-outline-dark mt-1 w100">{{$btn}}</a>
+        <a class="btn btnSumbitForm btn-primary mt-1  ">{{$btn}}</a>
         @endif
     </div>
 </form>
